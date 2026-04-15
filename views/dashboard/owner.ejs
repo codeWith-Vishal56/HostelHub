@@ -1,0 +1,21 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2>Owner Dashboard</h2>
+
+<a href="/hostels/new" class="btn btn-success mb-3">Add Hostel</a>
+
+<% hostels.forEach(hostel => { %>
+
+<div class="card mb-2">
+
+<div class="card-body">
+
+<h5><%= hostel.title %></h5>
+
+<a href="/hostels/<%= hostel._id %>" class="btn btn-primary">View</a>
+
+</div>
+
+</div>
+
+<% }) %>

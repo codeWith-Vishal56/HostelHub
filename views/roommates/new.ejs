@@ -1,0 +1,21 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2>Create Roommate Post</h2>
+
+<form action="/roommates" method="POST">
+  <input name="city" class="form-control mb-2" placeholder="City" />
+
+  <input name="budget" class="form-control mb-2" placeholder="Budget" />
+
+  <input
+    name="genderPreference"
+    class="form-control mb-2"
+    placeholder="Gender Preference"
+  />
+
+  <textarea name="description" class="form-control mb-2"></textarea>
+
+  <input name="contactInfo" class="form-control mb-2" placeholder="Contact" />
+
+  <button class="btn btn-primary">Post</button>
+</form>

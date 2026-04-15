@@ -1,0 +1,25 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2>Roommate Finder</h2>
+
+<a href="/roommates/new" class="btn btn-success mb-3">Post Requirement</a>
+
+<% posts.forEach(post => { %>
+
+<div class="card mb-3">
+
+<div class="card-body">
+
+<h5><%= post.city %></h5>
+
+<p>Budget: ₹<%= post.budget %></p>
+
+<p><%= post.description %></p>
+
+<p>Contact: <%= post.contactInfo %></p>
+
+</div>
+
+</div>
+
+<% }) %>

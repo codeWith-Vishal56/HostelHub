@@ -1,0 +1,17 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2>Edit Hostel</h2>
+
+<form action="/hostels/<%= hostel._id %>?_method=PUT" method="POST">
+  <input name="title" value="<%= hostel.title %>" class="form-control mb-2" />
+
+  <input name="price" value="<%= hostel.price %>" class="form-control mb-2" />
+
+  <input
+    name="location"
+    value="<%= hostel.location %>"
+    class="form-control mb-2"
+  />
+
+  <button class="btn btn-warning">Update</button>
+</form>

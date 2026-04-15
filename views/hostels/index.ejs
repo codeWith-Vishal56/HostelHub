@@ -1,0 +1,39 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2>All Hostels</h2>
+
+<a href="/hostels/new" class="btn btn-success mb-3">Add Hostel</a>
+
+<div class="row">
+
+<% hostels.forEach(hostel => { %>
+
+<div class="col-md-4">
+
+<div class="card mb-4">
+
+<% if(hostel.images.length){ %>
+
+<img src="<%= hostel.images[0].url %>" class="card-img-top">
+
+<% } %>
+
+<div class="card-body">
+
+<h5><%= hostel.title %></h5>
+
+<p><%= hostel.location %></p>
+
+<p>₹<%= hostel.price %></p>
+
+<a href="/hostels/<%= hostel._id %>" class="btn btn-primary">View</a>
+
+</div>
+
+</div>
+
+</div>
+
+<% }) %>
+
+</div>

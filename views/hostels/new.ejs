@@ -1,0 +1,44 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2>Add Hostel</h2>
+<form action="/hostels" method="POST" enctype="multipart/form-data">
+  <input name="title" class="form-control mb-2" placeholder="Title" />
+
+  <input name="price" class="form-control mb-2" placeholder="Price" />
+
+  <input name="location" class="form-control mb-2" placeholder="Location" />
+
+  <select name="roomType" class="form-control mb-2">
+    <option>single</option>
+    <option>double</option>
+    <option>triple</option>
+  </select>
+
+  <textarea name="description" class="form-control mb-2"></textarea>
+
+  <!-- single file input -->
+  <input type="file" name="image" id="imageInput" class="form-control mb-2" />
+
+  <!-- preview -->
+  <img id="preview" width="200" class="mb-2" />
+
+  <button class="btn btn-success">Create</button>
+</form>
+
+<script>
+  const input = document.getElementById("imageInput");
+
+  input.addEventListener("change", function () {
+    const file = this.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        document.getElementById("preview").src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
