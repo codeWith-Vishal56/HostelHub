@@ -1,4 +1,5 @@
 const Hostel = require("../models/Hostel");
+const detectScam = require("../utils/detectScam");
 
 module.exports.index = async (req, res) => {
   const hostels = await Hostel.find({}).populate("owner");
@@ -15,19 +16,26 @@ module.exports.showHostel = async (req, res) => {
 module.exports.newForm = (req, res) => {
   res.render("hostels/new");
 };
-
 module.exports.createHostel = async (req, res) => {
   try {
     const hostel = new Hostel(req.body.hostel || req.body);
 
     hostel.owner = req.user._id;
 
+    // ✅ Add verification fields (if provided)
+    hostel.phone = req.body.phone || "";
+    hostel.email = req.body.email || "";
+
+    // ✅ Image upload
     if (req.file) {
       hostel.images.push({
         url: req.file.path,
         filename: req.file.filename,
       });
     }
+
+    // ✅ Scam detection
+    hostel.isSuspicious = detectScam(hostel);
 
     await hostel.save();
 
@@ -40,7 +48,6 @@ module.exports.createHostel = async (req, res) => {
     res.redirect("/hostels/new");
   }
 };
-
 module.exports.editForm = async (req, res) => {
   const hostel = await Hostel.findById(req.params.id);
 

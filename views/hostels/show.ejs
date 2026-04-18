@@ -1,19 +1,78 @@
 <% layout("/layouts/boilerplate") %>
 
-<h2><%= hostel.title %></h2>
+<div class="container mt-4">
 
-<img src="<%= hostel.images[0]?.url %>" class="img-fluid mb-3" />
+  <h2>
+    <%= hostel.title %>
 
-<p><%= hostel.description %></p>
+    <!-- ✅ VERIFIED BADGE -->
+    <% if(hostel.isVerified){ %>
+      <span class="badge bg-success ms-2">✔ Verified</span>
+    <% } %>
+  </h2>
 
-<p>Location: <%= hostel.location %></p>
+  <!-- ✅ SUSPICIOUS WARNING -->
+  <% if(hostel.isSuspicious){ %>
+    <div class="alert alert-danger mt-2">
+      ⚠ Suspicious Listing — Proceed Carefully
+    </div>
+  <% } %>
 
-<p>Price: ₹<%= hostel.price %></p>
+  <!-- IMAGE -->
+  <% if(hostel.images.length > 0){ %>
+    <img src="<%= hostel.images[0].url %>" class="img-fluid mb-3 rounded" />
+  <% } %>
 
-<p>Room Type: <%= hostel.roomType %></p>
+  <div class="card p-3 shadow-sm">
 
-<a href="/hostels/<%= hostel._id %>/edit" class="btn btn-warning">Edit</a>
+    <p><%= hostel.description %></p>
 
-<form action="/hostels/<%= hostel._id %>?_method=DELETE" method="POST">
-  <button class="btn btn-danger mt-2">Delete</button>
-</form>
+    <p><strong>📍 Location:</strong> <%= hostel.location %></p>
+
+    <p><strong>💰 Price:</strong> ₹<%= hostel.price %></p>
+
+    <p><strong>🛏 Room Type:</strong> <%= hostel.roomType %></p>
+
+    <!-- ✅ CONTACT INFO (for trust) -->
+    <% if(hostel.phone){ %>
+      <p><strong>📞 Phone:</strong> <%= hostel.phone %></p>
+    <% } %>
+
+    <% if(hostel.email){ %>
+      <p><strong>📧 Email:</strong> <%= hostel.email %></p>
+    <% } %>
+
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="mt-3 d-flex gap-2">
+
+    <a href="/hostels/<%= hostel._id %>/edit" class="btn btn-warning">
+      ✏ Edit
+    </a>
+
+    <form action="/hostels/<%= hostel._id %>?_method=DELETE" method="POST">
+      <button class="btn btn-danger">🗑 Delete</button>
+    </form>
+
+  </div>
+
+  <hr>
+
+  <!-- ✅ REPORT SYSTEM -->
+  <h5>🚨 Report this listing</h5>
+
+  <form action="/hostels/<%= hostel._id %>/report" method="POST">
+    <textarea 
+      name="reason" 
+      class="form-control mb-2" 
+      placeholder="Why are you reporting this listing?"
+      required
+    ></textarea>
+
+    <button class="btn btn-outline-danger">
+      Report Listing
+    </button>
+  </form>
+
+</div>
