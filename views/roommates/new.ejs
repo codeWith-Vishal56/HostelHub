@@ -1,21 +1,72 @@
 <% layout("/layouts/boilerplate") %>
 
-<h2>Create Roommate Post</h2>
+<div class="container mt-4">
+  <h2 class="mb-3">🏠 Create Roommate Post</h2>
 
-<form action="/roommates" method="POST">
-  <input name="city" class="form-control mb-2" placeholder="City" />
+  <form action="/roommates" method="POST">
+    <input name="city" class="form-control mb-2" placeholder="City" required />
 
-  <input name="budget" class="form-control mb-2" placeholder="Budget" />
+    <input
+      name="budget"
+      class="form-control mb-2"
+      placeholder="Budget"
+      required
+    />
 
-  <input
-    name="genderPreference"
-    class="form-control mb-2"
-    placeholder="Gender Preference"
-  />
+    <input
+      name="genderPreference"
+      class="form-control mb-2"
+      placeholder="Gender Preference"
+    />
 
-  <textarea name="description" class="form-control mb-2"></textarea>
+    <textarea
+      name="description"
+      class="form-control mb-2"
+      placeholder="Describe yourself"
+    ></textarea>
 
-  <input name="contactInfo" class="form-control mb-2" placeholder="Contact" />
+    <input
+      name="contactInfo"
+      class="form-control mb-3"
+      placeholder="Contact Info"
+      required
+    />
 
-  <button class="btn btn-primary">Post</button>
-</form>
+    <h5 class="mt-3">🧠 Compatibility Preferences</h5>
+
+    <!-- FIXED SELECTS -->
+
+    <select name="sleepSchedule" class="form-control mb-2">
+      <option value="">Sleep Schedule</option>
+      <option value="early bird">Early Bird</option>
+      <option value="night owl">Night Owl</option>
+    </select>
+
+    <select name="smokingHabit" class="form-control mb-2">
+      <option value="">Smoking Habit</option>
+      <option value="smoker">Smoker</option>
+      <option value="non-smoker">Non-Smoker</option>
+    </select>
+
+    <select name="drinkingHabit" class="form-control mb-2">
+      <option value="">Drinking Habit</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <select name="studyStyle" class="form-control mb-2">
+      <option value="">Study Style</option>
+      <option value="quiet">Quiet</option>
+      <option value="music">Music</option>
+    </select>
+
+    <select name="cleanlinessLevel" class="form-control mb-3">
+      <option value="">Cleanliness Level</option>
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+
+    <button class="btn btn-primary w-100">Post</button>
+  </form>
+</div>

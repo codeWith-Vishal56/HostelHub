@@ -1,25 +1,56 @@
 <% layout("/layouts/boilerplate") %>
 
-<h2>Roommate Finder</h2>
+<div class="container mt-4">
 
-<a href="/roommates/new" class="btn btn-success mb-3">Post Requirement</a>
+  <h2 class="mb-3">🏠 Roommate Finder</h2>
 
-<% posts.forEach(post => { %>
+  <!-- Top Buttons -->
+  <div class="mb-3 d-flex gap-2">
+    <a href="/roommates/new" class="btn btn-success">
+      ➕ Post Requirement
+    </a>
 
-<div class="card mb-3">
+    <a href="/roommates/match" class="btn btn-primary">
+      🤝 Find Matches
+    </a>
+  </div>
 
-<div class="card-body">
+  <% if(posts.length === 0){ %>
 
-<h5><%= post.city %></h5>
+    <div class="alert alert-warning text-center">
+      No roommate posts yet. Be the first to post!
+    </div>
 
-<p>Budget: ₹<%= post.budget %></p>
+  <% } %>
 
-<p><%= post.description %></p>
+  <div class="row">
 
-<p>Contact: <%= post.contactInfo %></p>
+    <% posts.forEach(post => { %>
+
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+
+          <div class="card-body">
+
+            <h5 class="card-title">
+              📍 <%= post.city %>
+            </h5>
+
+            <p>💰 Budget: ₹<%= post.budget %></p>
+
+            <p><%= post.description %></p>
+
+            <hr>
+
+            <p>📞 Contact: <%= post.contactInfo %></p>
+
+          </div>
+
+        </div>
+      </div>
+
+    <% }) %>
+
+  </div>
 
 </div>
-
-</div>
-
-<% }) %>

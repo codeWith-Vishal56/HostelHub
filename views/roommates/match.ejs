@@ -1,0 +1,63 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-4">
+
+  <h2 class="mb-4 text-center">🤝 Best Roommate Matches</h2>
+
+  <% if(matches.length === 0){ %>
+
+    <div class="alert alert-warning text-center">
+      No matches found yet. Ask more users to create roommate profiles!
+    </div>
+
+  <% } %>
+
+  <div class="row">
+
+    <% matches.forEach(m => { %>
+
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+
+          <div class="card-body">
+
+            <h5 class="card-title">
+              📍 <%= m.profile.city %>
+            </h5>
+
+            <p class="card-text">
+              💰 Budget: ₹<%= m.profile.budget %>
+            </p>
+
+            <h6>
+              Match: 
+              <span class="badge 
+                <%= m.matchScore >= 80 ? 'bg-success' : 
+                    m.matchScore >= 50 ? 'bg-warning text-dark' : 
+                    'bg-danger' %>">
+                <%= m.matchScore %>%
+              </span>
+            </h6>
+
+            <% if(m.matchScore >= 80){ %>
+              <p class="text-success fw-bold">🔥 Top Match</p>
+            <% } %>
+
+            <hr>
+
+            <p>🛏 Sleep: <%= m.profile.sleepSchedule || "N/A" %></p>
+            <p>🚬 Smoking: <%= m.profile.smokingHabit || "N/A" %></p>
+            <p>🍺 Drinking: <%= m.profile.drinkingHabit || "N/A" %></p>
+            <p>📚 Study: <%= m.profile.studyStyle || "N/A" %></p>
+            <p>🧹 Cleanliness: <%= m.profile.cleanlinessLevel || "N/A" %></p>
+
+          </div>
+
+        </div>
+      </div>
+
+    <% }) %>
+
+  </div>
+
+</div>
