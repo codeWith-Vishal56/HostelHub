@@ -24,32 +24,17 @@ module.exports.newForm = (req, res) => {
   res.render("hostels/new");
 };
 
-// 🔹 Create hostel (UPDATED)
+// 🔹 Create hostel (CLEAN VERSION)
 module.exports.createHostel = async (req, res) => {
   try {
     const hostel = new Hostel(req.body.hostel || req.body);
 
-    // Owner
     hostel.owner = req.user._id;
 
-    // Contact
     hostel.phone = req.body.phone || "";
     hostel.email = req.body.email || "";
 
-    // ✅ Coordinates → geometry (FIXED)
-    if (req.body.latitude && req.body.longitude) {
-      const lat = parseFloat(req.body.latitude);
-      const lng = parseFloat(req.body.longitude);
-
-      if (!isNaN(lat) && !isNaN(lng)) {
-        hostel.geometry = {
-          type: "Point",
-          coordinates: [lng, lat],
-        };
-      }
-    }
-
-    // Image upload
+    // ✅ Image upload
     if (req.file) {
       hostel.images.push({
         url: req.file.path,
@@ -57,7 +42,7 @@ module.exports.createHostel = async (req, res) => {
       });
     }
 
-    // Scam detection
+    // ✅ Scam detection
     hostel.isSuspicious = detectScam(hostel);
 
     await hostel.save();
@@ -65,8 +50,23 @@ module.exports.createHostel = async (req, res) => {
     req.flash("success", "Hostel Created Successfully 🚀");
     res.redirect("/hostels");
   } catch (err) {
-    console.log(err);
-    req.flash("error", err.message);
+    console.log("FULL ERROR 👉", err);
+
+    // 🔥 IMPORTANT FIX
+    let message = "Something went wrong";
+
+    if (err.message) {
+      message = err.message;
+    }
+
+    if (err.errors) {
+      // mongoose validation error
+      message = Object.values(err.errors)
+        .map((e) => e.message)
+        .join(", ");
+    }
+
+    req.flash("error", message);
     res.redirect("/hostels/new");
   }
 };
@@ -83,24 +83,11 @@ module.exports.editForm = async (req, res) => {
   res.render("hostels/edit", { hostel });
 };
 
-// 🔹 Update hostel (UPDATED)
+// 🔹 Update hostel (CLEAN)
 module.exports.updateHostel = async (req, res) => {
   const { id } = req.params;
 
   const updateData = req.body.hostel || req.body;
-
-  // ✅ Update geometry
-  if (updateData.latitude && updateData.longitude) {
-    const lat = parseFloat(updateData.latitude);
-    const lng = parseFloat(updateData.longitude);
-
-    if (!isNaN(lat) && !isNaN(lng)) {
-      updateData.geometry = {
-        type: "Point",
-        coordinates: [lng, lat],
-      };
-    }
-  }
 
   await Hostel.findByIdAndUpdate(id, updateData);
 

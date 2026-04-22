@@ -23,7 +23,7 @@ const hostelSchema = new mongoose.Schema({
     ref: "User",
   },
 
-  // ✅ NEW FIELDS
+  // Verification
   isVerified: {
     type: Boolean,
     default: false,
@@ -38,6 +38,7 @@ const hostelSchema = new mongoose.Schema({
   phone: String,
   email: String,
 
+  // Scam detection
   isSuspicious: {
     type: Boolean,
     default: false,
@@ -51,19 +52,6 @@ const hostelSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  },
-  latitude: Number,
-  longitude: Number,
-  geometry: {
-    type: {
-      type: String,
-      enum: ["Point"],
-      required: true,
-    },
-    coordinates: {
-      type: [Number], // [lng, lat]
-      required: true,
-    },
   },
 });
 

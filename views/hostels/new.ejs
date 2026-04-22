@@ -1,44 +1,36 @@
 <% layout("/layouts/boilerplate") %>
 
 <h2>Add Hostel</h2>
+
 <form action="/hostels" method="POST" enctype="multipart/form-data">
-  <input name="title" class="form-control mb-2" placeholder="Title" />
 
-  <input name="price" class="form-control mb-2" placeholder="Price" />
+  <input name="title" class="form-control mb-2" placeholder="Title" required />
 
-  <input name="location" class="form-control mb-2" placeholder="Location" />
+  <input name="price" type="number" class="form-control mb-2" placeholder="Price" required />
 
-  <select name="roomType" class="form-control mb-2">
-    <option>single</option>
-    <option>double</option>
-    <option>triple</option>
+  <input name="location" class="form-control mb-2" placeholder="Location" required />
+
+  <select name="roomType" class="form-control mb-2" required>
+    <option value="">Select Room Type</option>
+    <option value="single">Single</option>
+    <option value="double">Double</option>
+    <option value="triple">Triple</option>
   </select>
 
   <input name="phone" class="form-control mb-2" placeholder="Phone Number" />
-  <input name="email" class="form-control mb-2" placeholder="Email" />
 
-  <textarea name="description" class="form-control mb-2"></textarea>
+  <input name="email" type="email" class="form-control mb-2" placeholder="Email" />
 
-  <!-- <input
-    name="latitude"
-    class="form-control mb-2"
-    placeholder="Latitude"
-    
-  />
-  <input
-    name="longitude"
-    class="form-control mb-2"
-    placeholder="Longitude"
-    
-  /> -->
+  <textarea name="description" class="form-control mb-2" placeholder="Description" required></textarea>
 
-  <!-- single file input -->
+  <!-- Image Upload -->
   <input type="file" name="image" id="imageInput" class="form-control mb-2" />
 
-  <!-- preview -->
+  <!-- Preview -->
   <img id="preview" width="200" class="mb-2" />
 
-  <button class="btn btn-success">Create</button>
+  <button class="btn btn-success">Create Hostel</button>
+
 </form>
 
 <script>
