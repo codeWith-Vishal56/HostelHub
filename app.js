@@ -55,6 +55,8 @@ const reviewRoutes = require("./routes/reviews");
 const roommateRoutes = require("./routes/roommates");
 const dashboardRoutes = require("./routes/dashboard");
 const reportRoutes = require("./routes/reports");
+const friendRoutes = require("./routes/friends");
+const mapRoutes = require("./routes/map");
 
 app.use("/", authRoutes);
 app.use("/hostels", hostelRoutes);
@@ -62,6 +64,8 @@ app.use("/hostels", reviewRoutes);
 app.use("/roommates", roommateRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/", reportRoutes);
+app.use("/friends", friendRoutes);
+app.use("/", mapRoutes);
 
 // HOME
 app.get("/", (req, res) => {

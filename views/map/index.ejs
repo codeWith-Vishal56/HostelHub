@@ -1,0 +1,79 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2>🗺 Hostel & Roommate Map</h2>
+
+<div id="map" style="height: 500px;"></div>
+
+<script>
+  function initMap() {
+    const center = { lat: 28.6139, lng: 77.2090 }; // default (Delhi)
+
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 10,
+      center,
+    });
+
+    // ✅ Safe data parsing
+    const hostels = <%- JSON.stringify(hostels || []) %>;
+    const roommates = <%- JSON.stringify(roommates || []) %>;
+
+    // 🏠 HOSTEL MARKERS
+    hostels.forEach(h => {
+      if (!h.latitude || !h.longitude) return;
+
+      const marker = new google.maps.Marker({
+        position: {
+          lat: parseFloat(h.latitude),
+          lng: parseFloat(h.longitude),
+        },
+        map,
+        title: h.title,
+      });
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: `
+          <h6>${h.title}</h6>
+          <p>₹${h.price}</p>
+          <a href="/hostels/${h._id}">View Details</a>
+        `,
+      });
+
+      marker.addListener("click", () => {
+        infoWindow.open(map, marker);
+      });
+    });
+
+    // 👥 ROOMMATE MARKERS
+    roommates.forEach(r => {
+      if (!r.latitude || !r.longitude) return;
+
+      const marker = new google.maps.Marker({
+        position: {
+          lat: parseFloat(r.latitude),
+          lng: parseFloat(r.longitude),
+        },
+        map,
+        icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+      });
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: `
+          <h6>Roommate Needed</h6>
+          <p>City: ${r.city}</p>
+          <p>Budget: ₹${r.budget || "N/A"}</p>
+        `,
+      });
+
+      marker.addListener("click", () => {
+        infoWindow.open(map, marker);
+      });
+    });
+  }
+</script>
+
+<!-- GOOGLE MAP SCRIPT -->
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+  async
+  defer
+></script>

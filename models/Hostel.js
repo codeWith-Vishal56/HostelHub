@@ -52,6 +52,19 @@ const hostelSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  latitude: Number,
+  longitude: Number,
+  geometry: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true,
+    },
+    coordinates: {
+      type: [Number], // [lng, lat]
+      required: true,
+    },
+  },
 });
 
 module.exports = mongoose.model("Hostel", hostelSchema);

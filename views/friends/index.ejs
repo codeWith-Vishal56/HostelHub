@@ -1,0 +1,29 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2>👫 People in Your City</h2>
+
+<div class="row">
+
+<% users.forEach(user => { %>
+
+  <div class="col-md-4">
+    <div class="card mb-3 p-3">
+
+      <h5><%= user.userId.name %></h5>
+
+      <p>📍 <%= user.city %></p>
+
+      <p>🎯 Interests: <%= user.interests.join(", ") %></p>
+
+      <p><%= user.bio %></p>
+
+      <form action="/friends/request/<%= user.userId._id %>" method="POST">
+        <button class="btn btn-primary">Send Request</button>
+      </form>
+
+    </div>
+  </div>
+
+<% }) %>
+
+</div>

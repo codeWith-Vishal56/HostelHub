@@ -1,0 +1,21 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2>Create Friend Profile</h2>
+
+<form action="/friends" method="POST">
+  <input name="city" class="form-control mb-2" placeholder="City" required />
+
+  <input
+    name="interests"
+    class="form-control mb-2"
+    placeholder="Interests (comma separated: coding, gym, music)"
+  />
+
+  <textarea
+    name="bio"
+    class="form-control mb-2"
+    placeholder="About you"
+  ></textarea>
+
+  <button class="btn btn-success">Create Profile</button>
+</form>
